@@ -65,6 +65,23 @@
 					</a>
 				</div>
 			</div>
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<ul class="top-menu text-right list-inline">
+
+					<!-- Search -->
+					<li class="dropdown search dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i> Search</a>
+						<ul class="dropdown-menu search-dropdown">
+							<li>
+								<form action="{{route('home')}}" method="GET">
+									<input type="search" class="form-control" name="search" placeholder="Search...">
+								</form>
+							</li>
+						</ul>
+					</li><!-- / Search -->
+
+				</ul>
+			</div>
 			
 		</div>
 	</div>

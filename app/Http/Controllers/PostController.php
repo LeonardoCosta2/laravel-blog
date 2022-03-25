@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
+
 class PostController extends Controller
 {
     /**
@@ -13,9 +14,35 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $posts = Post::all();
 
-        return view('site.home', ['posts' => $posts]);
+        $search = request('search');
+
+        if($search){
+            $posts = Post::where([
+                ['title', 'like', '%'.$search.'%']
+            ])->get();
+            /*
+                ------  usar essa forma para fazer paginacao e criar a pagina propria da paginacao  ------
+                
+                $posts = Post::where('title', 'LIKE', '%'.$search.'%')->paginate(1);
+
+                ------ usar essa forma no blade para puxar paginacao -----
+
+                $posts->links('pagination::bootstrap-4')
+
+            */
+            
+
+        }else{
+            $posts = Post::all();
+            // $posts = Post::paginate(1);
+            //$posts = Post::table('posts')->paginate(1);
+            
+        }
+
+        
+
+        return view('site.home', ['posts' => $posts, 'search' => $search]);
     }
 
     /**
