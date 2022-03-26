@@ -73,7 +73,7 @@
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i> Search</a>
 						<ul class="dropdown-menu search-dropdown">
 							<li>
-								<form action="{{route('home')}}" method="GET">
+								<form action="{{route('search')}}" method="GET">
 									<input type="search" class="form-control" name="search" placeholder="Search...">
 								</form>
 							</li>
