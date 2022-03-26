@@ -11,17 +11,13 @@ use Illuminate\Support\Str;
 class SearchController extends Controller{
     
     public function search(){
-
         
-        $requests = request('search');
+        $requests = addslashes(strip_tags(trim(request('q'))));
         $slug = Str::slug(Str::lower($requests), '-');
+
         $results = Post::where('slug', 'LIKE', '%'.$slug.'%')->paginate(1)->withQueryString();
-        /*$search = request('search');
-        $results = Post::where('title', 'LIKE', '%'.$search.'%')->paginate(1);
-
-        return view('site.search', ['results' => $results, 'search' => $search]);*/
-
-        return view('site.search', ['results' => $results]);
+        
+       return view('site.search', ['results' => $results, 'search' => Str::slug(Str::lower($requests), ' ')]);
       
     }
 }

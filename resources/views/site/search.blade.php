@@ -1,9 +1,11 @@
 @extends('../layouts.main')
 
-@section('title', 'Aviato - Blog')
+@section('title', 'Aviato - '.$search)
 
 @section('content')
 
+@if($results->count() > 0)
+    
 @foreach($results as $result)
     @php
         $category = explode(',', $result->category);
@@ -54,5 +56,9 @@
 @endforeach
 
 {{$results->links('pagination::bootstrap-4')}}
+
+@else
+    <p align="center">Nenhum resultado encontrado!</p> 
+@endif
 
 @endsection

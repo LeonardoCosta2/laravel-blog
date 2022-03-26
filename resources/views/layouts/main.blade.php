@@ -73,8 +73,9 @@
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i> Search</a>
 						<ul class="dropdown-menu search-dropdown">
 							<li>
-								<form action="{{route('search')}}" method="GET">
-									<input type="search" class="form-control" name="search" placeholder="Search...">
+								<form action="{{route('find')}}" method="POST">
+									@csrf
+									<input type="search" class="form-control" name="q" placeholder="Search...">
 								</form>
 							</li>
 						</ul>
@@ -187,7 +188,9 @@
 
     <!-- Main Js File -->
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    
+    <script>
+		
+	</script>
 
 
   </body>
