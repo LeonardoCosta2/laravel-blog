@@ -5,6 +5,7 @@
 @section('content')
 
 @foreach($posts as $post)
+
     @php
         $category = explode(',', $post->category);
         $count = count($category);
@@ -24,7 +25,7 @@
                     <i class="tf-ion-ios-calendar"></i> {{ date('d/m/Y - H:i:s', strtotime($post->created_at)) }}
                 </li>
                 <li>
-                    <i class="tf-ion-android-person"></i> POSTED BY ADMIN
+                    <i class="tf-ion-android-person"></i> <strong>{{Str::title($post->user->name)}}</strong>
                 </li>
                 <li>
                     <i class="tf-ion-ios-pricetags"></i>

@@ -26,7 +26,7 @@
                     <i class="tf-ion-ios-calendar"></i> {{ date('d/m/Y - H:i:s', strtotime($result->created_at)) }}
                 </li>
                 <li>
-                    <i class="tf-ion-android-person"></i> POSTED BY ADMIN
+                    <i class="tf-ion-android-person"></i> <strong>{{Str::title($result->user->name)}}</strong>
                 </li>
                 <li>
                     <i class="tf-ion-ios-pricetags"></i>

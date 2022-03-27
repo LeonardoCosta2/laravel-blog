@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 
 
 class PostController extends Controller
@@ -13,36 +14,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index(){  
 
-        $search = request('search');
+        $posts = Post::orderBy('id', 'desc')->get();
+        //$usersPost = User::where('id', $posts->user_id)->toArray();
 
-        if($search){
-            $posts = Post::where([
-                ['title', 'like', '%'.$search.'%']
-            ])->get();
-            /*
-                ------  usar essa forma para fazer paginacao e criar a pagina propria da paginacao  ------
-                
-                $posts = Post::where('title', 'LIKE', '%'.$search.'%')->paginate(1);
+        // quando se tem o relacionamento 1xN se chama na listagem todos os usuarios dos artigos desta forma "$post->user->name"; nesta caso eu quero ir na tabela posts e pegar somente o nome relacionado da tabela usuario. assim sendo post = tabela post, user = tabela usuario e name = nome do usuario na tabela
 
-                ------ usar essa forma no blade para puxar paginacao -----
 
-                $posts->links('pagination::bootstrap-4')
-
-            */
-            
-
-        }else{
-            $posts = Post::all();
-            // $posts = Post::paginate(1);
-            //$posts = Post::table('posts')->paginate(1);
-            
-        }
-
-        
-
-        return view('site.home', ['posts' => $posts, 'search' => $search]);
+        return view('site.home', ['posts' => $posts]);
     }
 
     /**
@@ -74,7 +54,7 @@ class PostController extends Controller
      */
     public function show($id){
         $post = Post::findOrFail($id);
-
+        //$usersPost = User::where('id', $posts->user_id)->toArray();
         return view('site.show', ['post' => $post]);
     }
 

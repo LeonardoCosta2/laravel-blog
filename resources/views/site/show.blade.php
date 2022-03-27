@@ -15,7 +15,7 @@
                     <i class="tf-ion-ios-calendar"></i> {{ date('d/m/Y', strtotime($post->created_at))}}
                 </li>
                 <li>
-                    <i class="tf-ion-android-person"></i> POSTED BY ADMIN
+                    <i class="tf-ion-android-person"></i> <strong>{{Str::title($post->user->name)}}</strong>
                 </li>
                 <li>
                     @php

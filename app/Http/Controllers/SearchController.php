@@ -15,7 +15,7 @@ class SearchController extends Controller{
             $requests = addslashes(strip_tags(trim(request('q'))));
             $slug = Str::slug(Str::lower($requests), '-');
 
-            $results = Post::where('slug', 'LIKE', '%'.$slug.'%')->paginate(1)->withQueryString();
+            $results = Post::where('slug', 'LIKE', '%'.$slug.'%')->orderBy('id', 'desc')->paginate(3)->withQueryString();
             
             return view('site.search', ['results' => $results, 'search' => Str::slug(Str::lower($requests), ' ')]);
 
