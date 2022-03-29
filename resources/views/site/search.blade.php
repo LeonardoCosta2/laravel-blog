@@ -30,11 +30,30 @@
                 </li>
                 <li>
                     <i class="tf-ion-ios-pricetags"></i>
-                    @for($i = 0; $i < $count; $i++)
-                        @if($category[$i] != end($category))
-                            <a href="#!/category/{{$category[$i]}}"> {{ $category[$i] }} </a>,
+                    @php
+                        $categorys = $result->categories()->get();
+                    @endphp
+                    
+
+                    @foreach($categorys as $category)
+                        @php
+                            // gambiara para conseguir pegar o ultimo elemento do array da tabela relacionada, para conseguri fazer a verificar e exibicao.
+                            // existe um metodo mais facil de se mostrar isso, mas eu precisava desse metodo para minha necessidade 
+                            // para subir no banco de dados relacionando, possivelmente terei que criar um array das categorias e cadastrar 1 por uma na tabela pivo do relacionamento NxN
+                            $ultimo = array($category->title);
+                            
+                        @endphp
+                        
+                    @endforeach
+
+
+
+                    @for($i = 0; $i < count($result->categories); $i++)
+                    
+                        @if($result->categories[$i]->title != end($ultimo))
+                            <a href="#!/category/{{$result->categories[$i]->title}}"> {{ $result->categories[$i]->title }} </a>,
                         @else
-                            <a href="#!/category/{{$category[$i]}}"> {{ $category[$i] }} </a>
+                            <a href="#!/category/{{$result->categories[$i]->title}}"> {{ $result->categories[$i]->title }} </a>
                         @endif
                         
                     @endfor
