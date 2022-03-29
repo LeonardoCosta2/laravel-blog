@@ -18,19 +18,32 @@
                     <i class="tf-ion-android-person"></i> <strong>{{Str::title($post->user->name)}}</strong>
                 </li>
                 <li>
+                    
                     @php
-                        $category = explode(',', $post->category);
-                        $count = count($category);
+                        $categorys = $post->categories()->get();
                     @endphp
-                    <i class="tf-ion-ios-pricetags"></i>
-                    @for($i = 0; $i < $count; $i++)
-                        @if($category[$i] != end($category))
-                            <a href="#!/category/{{$category[$i]}}"> {{ $category[$i] }} </a>,
+                    
+
+                    @foreach($categorys as $category)
+                        @php
+                            $ultimo = array($category->title);
+                            
+                        @endphp
+                        
+                    @endforeach
+
+                    @for($i = 0; $i < count($post->categories); $i++)
+                    
+                        @if($post->categories[$i]->title != end($ultimo))
+                            <a href="#!/category/{{$post->categories[$i]->title}}"> {{ $post->categories[$i]->title }} </a>,
                         @else
-                            <a href="#!/category/{{$category[$i]}}"> {{ $category[$i] }} </a>
+                            <a href="#!/category/{{$post->categories[$i]->title}}"> {{ $post->categories[$i]->title }} </a>
                         @endif
                         
                     @endfor
+
+
+
                 </li>
                 <li>
                     <a href="#!"><i class="tf-ion-chatbubbles"></i> 4 COMMENTS</a>

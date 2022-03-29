@@ -6,19 +6,13 @@
 
 @foreach($posts as $post)
 
-    @php
-        $category = explode(',', $post->category);
-        $count = count($category);
-    @endphp
-
-
     <div class="post">
         <div class="post-media post-thumb">
             <a href="{{ route('post.show', $post->id) }}">
                 <img src="{{ asset('assets/images/blog/'.$post->img) }}" alt="">
             </a>
         </div>
-        <h2 class="post-title"><a href="{{ route('post.show', $post->id) }}">{{ $post->title }}</a></h2>
+        <h2 class="post-title"><a href="{{ route('post.show', $post->id) }}">{{ Str::title($post->title) }}</a></h2>
         <div class="post-meta">
             <ul>
                 <li>
@@ -29,11 +23,31 @@
                 </li>
                 <li>
                     <i class="tf-ion-ios-pricetags"></i>
-                    @for($i = 0; $i < $count; $i++)
-                        @if($category[$i] != end($category))
-                            <a href="#!/category/{{$category[$i]}}"> {{ $category[$i] }} </a>,
+                
+                    @php
+                        $categorys = $post->categories()->get();
+                    @endphp
+                    
+
+                    @foreach($categorys as $category)
+                        @php
+                            // gambiara para conseguir pegar o ultimo elemento do array da tabela relacionada, para conseguri fazer a verificar e exibicao.
+                            // existe um metodo mais facil de se mostrar isso, mas eu precisava desse metodo para minha necessidade 
+                            // para subir no banco de dados relacionando, possivelmente terei que criar um array das categorias e cadastrar 1 por uma na tabela pivo do relacionamento NxN
+                            $ultimo = array($category->title);
+                            
+                        @endphp
+                        
+                    @endforeach
+
+
+
+                    @for($i = 0; $i < count($post->categories); $i++)
+                    
+                        @if($post->categories[$i]->title != end($ultimo))
+                            <a href="#!/category/{{$post->categories[$i]->title}}"> {{ $post->categories[$i]->title }} </a>,
                         @else
-                            <a href="#!/category/{{$category[$i]}}"> {{ $category[$i] }} </a>
+                            <a href="#!/category/{{$post->categories[$i]->title}}"> {{ $post->categories[$i]->title }} </a>
                         @endif
                         
                     @endfor

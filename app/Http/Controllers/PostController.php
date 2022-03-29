@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 
 
+
 class PostController extends Controller
 {
     /**
@@ -17,6 +18,13 @@ class PostController extends Controller
     public function index(){  
 
         $posts = Post::orderBy('id', 'desc')->get();
+        
+        //$categories = $posts->categories()->get();
+
+
+        /*foreach($posts as $category){
+            echo $category->categories[0]->id;
+        }*/
         //$usersPost = User::where('id', $posts->user_id)->toArray();
 
         // quando se tem o relacionamento 1xN se chama na listagem todos os usuarios dos artigos desta forma "$post->user->name"; nesta caso eu quero ir na tabela posts e pegar somente o nome relacionado da tabela usuario. assim sendo post = tabela post, user = tabela usuario e name = nome do usuario na tabela
